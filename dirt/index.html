@@ -1,18 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Temperature Conveerter</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Temperature Converter</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 <body class="bg-[#0B0C10] flex flex-col items-center justify-center min-h-screen">
-    <h1 class="text-2xl text-white font-extrabold mb-8">Temperature Converter</h1>
-       <h2 class="text-sm text-amber-500  font-medium mb-8">🌡️ “Convert in a Click — From Freezing to Fiery!”</h2>
-    <!-- //main page  -->
-    <div class="bg-slate-800 rounded-lg w-11/12 max-w-[450px] h-[300px] flex items-center justify-center relative">
-      <img class="h-auto max-w-[13%] absolute bottom-[14rem] left-[10px]" src="./asset/temperature-sensor.png" alt="temperature-sensor-icon">
-       <img class="h-auto max-w-[13%] absolute bottom-[14rem] right-[10px]" src="./asset/thermostat.png" alt="thermostat-icon">
+  <h1 class="text-2xl text-white font-extrabold mb-8">Temperature Converter</h1>
+  <h2 class="text-sm text-amber-500 font-medium mb-8">🌡️ “Convert in a Click — From Freezing to Fiery!”</h2>
+
+  <div class="bg-slate-800 rounded-lg w-11/12 max-w-[470px] h-[260px] flex flex-col items-center justify-center relative">
+    <img class="h-auto max-w-[13%] absolute top-4 left-4" src="./asset/temperature-sensor.png" alt="temperature-sensor-icon">
+    <img class="h-auto max-w-[13%] absolute top-4 right-4" src="./asset/thermostat.png" alt="thermostat-icon">
+
+    <div class="flex flex-col gap-[18px] md:flex-row mt-4">
+      <input id="value" class="rounded-lg font-extrabold text-white text-sm h-[40px] w-[153px] bg-indigo-500" type="number" placeholder="Enter the number ">
+      <select class="rounded-md border border-gray-400 px-3 py-2 text-black">
+        <option value="kelvin">Kelvin (K)</option>
+        <option value="celsius">Celsius (°C)</option>
+        <option value="fahrenheit">Fahrenheit (°F)</option>
+      </select>
     </div>
-  </body>
+
+    <button 
+      id="convert" 
+      class="hover:bg-rose-500 bg-red-500 text-white font-extrabold text-sm h-[40px] px-3 rounded-lg transition-shadow duration-300 hover:shadow-lg hover:shadow-rose-700/50 mt-4">
+      Convert
+    </button>
+    <p id="result" class="text-green-400 text-lg font-semibold mt-4 transition duration-300"></p>
+  </div>
+
+  <script>
+    const convert = document.getElementById('convert');
+    const input = document.querySelector('input[type="number"]');
+    const select = document.querySelector('select');
+    const result = document.getElementById('result');
+
+    function converted() {
+      const value = parseFloat(input.value);
+      const unit = select.value;
+      let convertedValue;
+
+      if(unit === "kelvin"){
+        convertedValue = value + 273.15;
+        result.textContent = `Temperature: ${convertedValue.toFixed(2)} K`;
+      }
+      else if(unit === "fahrenheit"){
+        convertedValue = (value * 9/5) + 32;
+        result.textContent = `Temperature: ${convertedValue.toFixed(2)} °F`;
+      }
+      else{
+        convertedValue = value;
+        result.textContent = `Temperature: ${convertedValue.toFixed(2)} °C`;
+      }
+    }
+
+    convert.addEventListener('click', converted);
+  </script>
+
+</body>
 </html>
